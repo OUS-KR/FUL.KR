@@ -52,6 +52,8 @@
   - 예제: [FUL.KR/yt/1ZX1vEDTfY4/1m6s](https://ful.kr/yt/1ZX1vEDTfY4/1m6s), [FUL.KR/yt/yebNIHKAC4A/56](https://ful.kr/yt/yebNIHKAC4A/56)
 - 유튜브 영상 썸네일: `FUL.KR/yt/img/{유튜브 영상 아이디}`
   - 예제: [FUL.KR/yt/img/1ZX1vEDTfY4](https://ful.kr/yt/img/1ZX1vEDTfY4), [FUL.KR/yt/img/yebNIHKAC4A](https://ful.kr/yt/img/yebNIHKAC4A)
+- 유튜브 채널 RSS: `FUL.KR/yt/rss/{유튜브 채널 아이디}`
+  - 예제: [FUL.KR/yt/rss/UC-Fnix71vRP64WXeo0ikd0Q](https://ful.kr/yt/rss/UC-Fnix71vRP64WXeo0ikd0Q)
 
 #### 마크다운 작성 시 사용 방법
 
