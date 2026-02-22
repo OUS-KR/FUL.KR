@@ -1,0 +1,1712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FUL — ful.kr · The Suffix of Fullness</title>
+  <meta name="description" content="ful.kr — The domain of fullness, abundance, and character. Exploring the native English suffix that fills every noun with its own richest quality." />
+
+  <!-- Tailwind CSS 4.0 via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&family=Abril+Fatface&display=swap" rel="stylesheet" />
+
+  <style type="text/tailwindcss">
+    @theme {
+      /* ── Color tokens — Bloom & Meadow palette ── */
+      --color-petal-50:  #fff5f5;
+      --color-petal-100: #ffe4e4;
+      --color-petal-200: #ffc9c9;
+      --color-petal-300: #ffa0a0;
+      --color-petal-400: #f87878;
+      --color-petal-500: #e87070;
+      --color-petal-600: #d04848;
+      --color-petal-700: #ac3030;
+      --color-petal-800: #882020;
+      --color-petal-900: #661414;
+
+      --color-sun-50:  #fffdf0;
+      --color-sun-100: #fff9d0;
+      --color-sun-200: #fff2a0;
+      --color-sun-300: #ffe870;
+      --color-sun-400: #f8d840;
+      --color-sun-500: #f0c030;
+      --color-sun-600: #d4a018;
+      --color-sun-700: #b08010;
+      --color-sun-800: #8a600a;
+      --color-sun-900: #664506;
+
+      --color-meadow-50:  #f0faf2;
+      --color-meadow-100: #d8f4de;
+      --color-meadow-200: #b4e8bc;
+      --color-meadow-300: #88d494;
+      --color-meadow-400: #5aaa6a; 
+      --color-meadow-500: #408c52;
+      --color-meadow-600: #307040;
+      --color-meadow-700: #245630;
+      --color-meadow-800: #1a4024;
+      --color-meadow-900: #102e18;
+
+      --color-sky-50:  #f0f6ff;
+      --color-sky-100: #d8eaff;
+      --color-sky-200: #b0d4ff;
+      --color-sky-300: #80b8ff;
+      --color-sky-400: #5090e0;
+      --color-sky-500: #3070c4;
+      --color-sky-600: #2058a8;
+      --color-sky-700: #184090;
+      --color-sky-800: #102c78;
+      --color-sky-900: #0a1e5c;
+
+      --color-dawn-50:  #fdf8f0;
+      --color-dawn-100: #faf0e0;
+      --color-dawn-200: #f4e0c4;
+      --color-dawn-300: #eccca0;
+      --color-dawn-400: #e0b478;
+      --color-dawn-500: #d09858;
+      --color-dawn-600: #b07c40;
+      --color-dawn-700: #8c6030;
+      --color-dawn-800: #6a4822;
+      --color-dawn-900: #4e3418;
+
+      --color-void-950: #06050c;
+      --color-void-900: #080810;
+      --color-void-800: #0c0c18;
+      --color-void-700: #101424;
+      --color-void-600: #181c34;
+
+      /* ── Typography tokens ── */
+      --font-display: 'Abril Fatface', serif;
+      --font-serif:   'Lora', Georgia, serif;
+      --font-body:    'Inter', system-ui, sans-serif;
+    }
+
+    @layer base {
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+      body {
+        background-color: #06050c;
+        color: #f0ece4;
+        font-family: var(--font-body);
+        overflow-x: hidden;
+      }
+      ::selection {
+        background: rgba(232,112,112,0.35);
+        color: #fff5f5;
+      }
+    }
+
+    @layer components {
+
+      /* ── Canvas & overlays ── */
+      .ful-canvas {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+      }
+      .bloom-grid {
+        position: fixed;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        background-image:
+          linear-gradient(rgba(232,112,112,0.038) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(232,112,112,0.038) 1px, transparent 1px);
+        background-size: 68px 68px;
+      }
+      .meadow-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        background:
+          radial-gradient(ellipse 80% 55% at 10% 8%,  rgba(240,192,48,0.08)  0%, transparent 65%),
+          radial-gradient(ellipse 60% 50% at 90% 92%, rgba(90,170,106,0.06)  0%, transparent 60%),
+          radial-gradient(ellipse 50% 40% at 50% 50%, rgba(232,112,112,0.04) 0%, transparent 70%);
+      }
+      .vignette {
+        position: fixed;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        background: radial-gradient(ellipse 100% 100% at 50% 50%, transparent 40%, rgba(6,5,12,0.92) 100%);
+      }
+
+      /* ── Header ── */
+      .site-header {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 100;
+        padding: 0 2rem;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: rgba(6,5,12,0.78);
+        backdrop-filter: blur(18px);
+        border-bottom: 1px solid rgba(232,112,112,0.16);
+      }
+      .logo-mark {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        text-decoration: none;
+      }
+      .logo-icon {
+        width: 36px; height: 36px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #e87070 0%, #f0c030 60%, #5aaa6a 100%);
+        display: flex; align-items: center; justify-content: center;
+        font-family: var(--font-display);
+        font-size: 13px;
+        color: #fff;
+        letter-spacing: 0.02em;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 0 14px rgba(240,192,48,0.28);
+      }
+      .logo-icon::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, transparent 55%);
+        border-radius: 50%;
+      }
+      .logo-text {
+        font-family: var(--font-display);
+        font-size: 20px;
+        color: #f8d840;
+        letter-spacing: 0.06em;
+      }
+      .domain-badge {
+        padding: 4px 14px;
+        border-radius: 20px;
+        background: rgba(240,192,48,0.12);
+        border: 1px solid rgba(240,192,48,0.30);
+        font-size: 11px;
+        font-weight: 500;
+        color: #f8d840;
+        letter-spacing: 0.10em;
+        backdrop-filter: blur(8px);
+      }
+      .header-nav {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+      }
+      .nav-link {
+        font-size: 12px;
+        color: rgba(248,216,64,0.48);
+        text-decoration: none;
+        letter-spacing: 0.10em;
+        text-transform: uppercase;
+        transition: color 0.2s;
+      }
+      .nav-link:hover { color: #f8d840; }
+
+      /* ── Hero ── */
+      .hero-section {
+        position: relative;
+        z-index: 10;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 120px 2rem 80px;
+        text-align: center;
+        overflow: hidden;
+      }
+      .hero-bg-text {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-display);
+        font-size: clamp(140px, 28vw, 360px);
+        color: rgba(240,192,48,0.042);
+        letter-spacing: 0.08em;
+        pointer-events: none;
+        user-select: none;
+        animation: bloomDrift 18s ease-in-out infinite alternate;
+      }
+      @keyframes bloomDrift {
+        0%   { transform: scale(1.00) rotate(-0.3deg); opacity: 0.72; }
+        50%  { transform: scale(1.03) rotate( 0.2deg); opacity: 1.00; }
+        100% { transform: scale(1.06) rotate(-0.2deg); opacity: 0.82; }
+      }
+
+      /* Petal ring */
+      .petal-ring {
+        position: absolute;
+        width: 340px; height: 340px;
+        border-radius: 50%;
+        pointer-events: none;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+      }
+      .petal-ring::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        border: 1px solid rgba(232,112,112,0.18);
+        animation: petalSpin 40s linear infinite;
+      }
+      .petal-ring::after {
+        content: '';
+        position: absolute;
+        inset: 20px;
+        border-radius: 50%;
+        border: 1px dashed rgba(240,192,48,0.14);
+        animation: petalSpin 28s linear infinite reverse;
+      }
+      @keyframes petalSpin {
+        from { transform: rotate(0deg); }
+        to   { transform: rotate(360deg); }
+      }
+
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 6px 18px;
+        border-radius: 24px;
+        border: 1px solid rgba(240,192,48,0.36);
+        background: rgba(240,192,48,0.09);
+        font-size: 10px;
+        font-weight: 600;
+        color: #f8d840;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        margin-bottom: 2rem;
+        backdrop-filter: blur(8px);
+        position: relative;
+        z-index: 2;
+      }
+      .badge-dot {
+        width: 6px; height: 6px;
+        border-radius: 50%;
+        background: #f0c030;
+        animation: pulseDot 2.2s ease-in-out infinite;
+      }
+      @keyframes pulseDot {
+        0%,100% { transform: scale(1);   opacity: 1;   box-shadow: 0 0 0 0   rgba(240,192,48,0.45); }
+        50%      { transform: scale(1.6); opacity: 0.55; box-shadow: 0 0 0 7px rgba(240,192,48,0); }
+      }
+
+      .hero-suffix {
+        font-family: var(--font-display);
+        font-size: clamp(80px, 16vw, 200px);
+        line-height: 0.88;
+        letter-spacing: 0.06em;
+        background: linear-gradient(135deg, #f87878 0%, #f0c030 40%, #88d494 70%, #80b8ff 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 1.25rem;
+        position: relative;
+        z-index: 2;
+      }
+      .hero-suffix .dash {
+        -webkit-text-fill-color: rgba(248,120,120,0.28);
+      }
+
+      .hero-origin {
+        font-size: 12px;
+        color: rgba(248,216,64,0.38);
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+        position: relative;
+        z-index: 2;
+      }
+      .hero-meaning {
+        font-family: var(--font-serif);
+        font-size: clamp(20px, 3vw, 34px);
+        font-style: italic;
+        color: #faf0e0;
+        margin-bottom: 1.5rem;
+        max-width: 640px;
+        line-height: 1.48;
+        position: relative;
+        z-index: 2;
+      }
+      .hero-quote {
+        font-size: 14px;
+        color: rgba(240,236,228,0.38);
+        max-width: 520px;
+        line-height: 1.82;
+        margin-bottom: 2.5rem;
+        font-style: italic;
+        position: relative;
+        z-index: 2;
+      }
+      .hero-words {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        justify-content: center;
+        margin-bottom: 3rem;
+        max-width: 720px;
+        position: relative;
+        z-index: 2;
+      }
+      .word-pill {
+        padding: 5px 14px;
+        border-radius: 20px;
+        background: rgba(240,192,48,0.09);
+        border: 1px solid rgba(240,192,48,0.22);
+        font-size: 12px;
+        font-weight: 500;
+        color: #f8d840;
+        letter-spacing: 0.04em;
+        transition: all 0.25s;
+        cursor: default;
+      }
+      .word-pill:hover {
+        background: rgba(240,192,48,0.20);
+        border-color: rgba(248,216,64,0.45);
+        color: #faf0e0;
+        transform: translateY(-2px);
+      }
+      /* pill colour variants */
+      .word-pill.rose  { color:#f87878; border-color:rgba(232,112,112,0.28); background:rgba(232,112,112,0.08); }
+      .word-pill.rose:hover  { background:rgba(232,112,112,0.18); border-color:rgba(248,120,120,0.50); color:#ffc9c9; }
+      .word-pill.green { color:#88d494; border-color:rgba(90,170,106,0.28); background:rgba(90,170,106,0.08); }
+      .word-pill.green:hover { background:rgba(90,170,106,0.18); border-color:rgba(136,212,148,0.50); color:#d8f4de; }
+      .word-pill.sky   { color:#80b8ff; border-color:rgba(80,144,224,0.28); background:rgba(80,144,224,0.08); }
+      .word-pill.sky:hover   { background:rgba(80,144,224,0.18); border-color:rgba(128,184,255,0.50); color:#d8eaff; }
+
+      .hero-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 13px 34px;
+        border-radius: 30px;
+        background: linear-gradient(135deg, #e87070 0%, #f0c030 50%, #5aaa6a 100%);
+        color: #fff;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        text-decoration: none;
+        transition: all 0.3s;
+        box-shadow: 0 4px 24px rgba(240,192,48,0.28);
+        position: relative;
+        z-index: 2;
+      }
+      .hero-cta:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 38px rgba(232,112,112,0.36);
+      }
+
+      /* ── Stats ── */
+      .stats-section {
+        position: relative;
+        z-index: 10;
+        padding: 4rem 2rem;
+        max-width: 960px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+      }
+      .stat-card {
+        text-align: center;
+        padding: 2rem 1.5rem;
+        border-radius: 16px;
+        background: rgba(240,192,48,0.055);
+        border: 1px solid rgba(240,192,48,0.13);
+        backdrop-filter: blur(12px);
+        transition: transform 0.3s;
+      }
+      .stat-card:hover { transform: translateY(-4px); }
+      .stat-number {
+        font-family: var(--font-display);
+        font-size: clamp(30px, 5vw, 52px);
+        background: linear-gradient(135deg, #f87878, #f0c030, #88d494);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1;
+        margin-bottom: 0.5rem;
+        letter-spacing: 0.04em;
+      }
+      .stat-label {
+        font-size: 11px;
+        color: rgba(248,216,64,0.42);
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      /* ── Shared section ── */
+      .section-label {
+        font-size: 10px;
+        color: rgba(232,112,112,0.52);
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        margin-bottom: 3rem;
+        text-align: center;
+      }
+      .section-title {
+        font-family: var(--font-display);
+        font-size: clamp(28px, 4.5vw, 52px);
+        color: #faf0e0;
+        text-align: center;
+        margin-bottom: 0.6rem;
+        letter-spacing: 0.04em;
+      }
+      .section-subtitle {
+        font-size: 14px;
+        color: rgba(240,236,228,0.36);
+        text-align: center;
+        max-width: 460px;
+        margin: 0 auto 3rem;
+        line-height: 1.75;
+      }
+
+      /* ── Letters Grid ── */
+      .letters-section {
+        position: relative;
+        z-index: 10;
+        padding: 4rem 2rem;
+        max-width: 960px;
+        margin: 0 auto;
+      }
+      .letters-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+      }
+      .letter-block {
+        padding: 2.5rem 2rem;
+        border-radius: 20px;
+        background: rgba(8,8,16,0.85);
+        border: 1px solid rgba(240,192,48,0.14);
+        backdrop-filter: blur(16px);
+        position: relative;
+        overflow: hidden;
+        transition: all 0.30s;
+      }
+      .letter-block::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, rgba(232,112,112,0.50), rgba(240,192,48,0.40), rgba(90,170,106,0.30), transparent);
+      }
+      .letter-block:hover {
+        border-color: rgba(248,216,64,0.32);
+        transform: translateY(-4px);
+        box-shadow: 0 14px 44px rgba(240,192,48,0.10);
+      }
+      .letter-char {
+        font-family: var(--font-display);
+        font-size: 64px;
+        line-height: 1;
+        margin-bottom: 0.75rem;
+        letter-spacing: 0.04em;
+      }
+      .letter-char.rose    { background: linear-gradient(135deg, #f87878, #f0c030); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+      .letter-char.sun     { background: linear-gradient(135deg, #f0c030, #88d494); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+      .letter-char.meadow  { background: linear-gradient(135deg, #88d494, #80b8ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+      .letter-name {
+        font-size: 11px;
+        color: rgba(248,216,64,0.62);
+        letter-spacing: 0.20em;
+        text-transform: uppercase;
+        margin-bottom: 0.75rem;
+        font-weight: 600;
+      }
+      .letter-desc {
+        font-size: 13px;
+        color: rgba(240,236,228,0.50);
+        line-height: 1.72;
+      }
+
+      /* ── Feature Cards ── */
+      .features-section {
+        position: relative;
+        z-index: 10;
+        padding: 4rem 2rem;
+        max-width: 960px;
+        margin: 0 auto;
+      }
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+      }
+      .feature-card {
+        padding: 2.5rem 2rem;
+        border-radius: 20px;
+        background: rgba(8,8,16,0.78);
+        border: 1px solid rgba(240,192,48,0.12);
+        backdrop-filter: blur(16px);
+        transition: all 0.30s;
+        position: relative;
+        overflow: hidden;
+      }
+      .feature-card::after {
+        content: '';
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, rgba(232,112,112,0.40), rgba(240,192,48,0.40), rgba(90,170,106,0.30), transparent);
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .feature-card:hover::after { opacity: 1; }
+      .feature-card:hover {
+        border-color: rgba(248,216,64,0.28);
+        transform: translateY(-4px);
+        box-shadow: 0 18px 52px rgba(240,192,48,0.08);
+      }
+      .feature-icon {
+        font-size: 30px;
+        margin-bottom: 1.25rem;
+        display: block;
+      }
+      .feature-title {
+        font-family: var(--font-display);
+        font-size: 18px;
+        color: #f8d840;
+        letter-spacing: 0.06em;
+        margin-bottom: 0.75rem;
+        text-transform: uppercase;
+      }
+      .feature-desc {
+        font-size: 13px;
+        color: rgba(240,236,228,0.48);
+        line-height: 1.75;
+      }
+
+      /* ── Etymology Timeline ── */
+      .etymology-section {
+        position: relative;
+        z-index: 10;
+        padding: 4rem 2rem;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .etym-timeline {
+        position: relative;
+        padding-left: 2.5rem;
+        margin-top: 3rem;
+      }
+      .etym-timeline::before {
+        content: '';
+        position: absolute;
+        left: 9px; top: 0; bottom: 0;
+        width: 1px;
+        background: linear-gradient(to bottom, transparent, rgba(232,112,112,0.40) 15%, rgba(240,192,48,0.40) 50%, rgba(90,170,106,0.30) 85%, transparent);
+      }
+      .etym-step {
+        position: relative;
+        margin-bottom: 2.75rem;
+      }
+      .etym-step::before {
+        content: '';
+        position: absolute;
+        left: -2.1rem;
+        top: 5px;
+        width: 10px; height: 10px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #e87070, #f0c030);
+        box-shadow: 0 0 14px rgba(240,192,48,0.50);
+      }
+      .etym-era {
+        font-size: 10px;
+        color: #f0c030;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        margin-bottom: 0.4rem;
+        font-weight: 600;
+      }
+      .etym-form {
+        font-family: var(--font-serif);
+        font-size: 24px;
+        font-style: italic;
+        color: #faf0e0;
+        margin-bottom: 0.4rem;
+      }
+      .etym-note {
+        font-size: 13px;
+        color: rgba(240,236,228,0.42);
+        line-height: 1.72;
+      }
+
+      /* ── Word Gallery ── */
+      .gallery-section {
+        position: relative;
+        z-index: 10;
+        padding: 4rem 2rem;
+        max-width: 960px;
+        margin: 0 auto;
+      }
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+        margin-top: 3rem;
+      }
+      .gallery-card {
+        padding: 1.5rem 1.25rem;
+        border-radius: 14px;
+        background: rgba(8,8,16,0.82);
+        border: 1px solid rgba(240,192,48,0.10);
+        text-align: center;
+        transition: all 0.25s;
+        cursor: default;
+        position: relative;
+        overflow: hidden;
+      }
+      .gallery-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 1px;
+        opacity: 0;
+        transition: opacity 0.25s;
+      }
+      .gallery-card.rose-card::before  { background: linear-gradient(90deg, transparent, rgba(232,112,112,0.55), transparent); }
+      .gallery-card.sun-card::before   { background: linear-gradient(90deg, transparent, rgba(240,192,48,0.55), transparent);  }
+      .gallery-card.green-card::before { background: linear-gradient(90deg, transparent, rgba(90,170,106,0.55), transparent);  }
+      .gallery-card.sky-card::before   { background: linear-gradient(90deg, transparent, rgba(80,144,224,0.55), transparent);  }
+      .gallery-card:hover::before { opacity: 1; }
+      .gallery-card:hover {
+        transform: translateY(-3px);
+        background: rgba(240,192,48,0.07);
+      }
+      .gallery-card.rose-card:hover  { border-color:rgba(232,112,112,0.35); background:rgba(232,112,112,0.07); }
+      .gallery-card.sun-card:hover   { border-color:rgba(240,192,48,0.35);  background:rgba(240,192,48,0.07);  }
+      .gallery-card.green-card:hover { border-color:rgba(90,170,106,0.35);  background:rgba(90,170,106,0.07);  }
+      .gallery-card.sky-card:hover   { border-color:rgba(80,144,224,0.35);  background:rgba(80,144,224,0.07);  }
+      .gallery-word {
+        font-family: var(--font-serif);
+        font-size: 16px;
+        font-style: italic;
+        color: #faf0e0;
+        margin-bottom: 0.4rem;
+      }
+      .gallery-gloss {
+        font-size: 11px;
+        color: rgba(248,216,64,0.38);
+        letter-spacing: 0.04em;
+      }
+      .gallery-card.rose-card  .gallery-gloss { color: rgba(248,120,120,0.45); }
+      .gallery-card.green-card .gallery-gloss { color: rgba(136,212,148,0.45); }
+      .gallery-card.sky-card   .gallery-gloss { color: rgba(128,184,255,0.45); }
+
+      /* ── Germanic vs Latin Comparison ── */
+      .compare-section {
+        position: relative;
+        z-index: 10;
+        padding: 4rem 2rem;
+        max-width: 860px;
+        margin: 0 auto;
+      }
+      .compare-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        margin-top: 3rem;
+      }
+      .compare-card {
+        padding: 2rem 1.75rem;
+        border-radius: 18px;
+        background: rgba(8,8,16,0.80);
+        backdrop-filter: blur(16px);
+        transition: all 0.3s;
+      }
+      .compare-card.germanic {
+        border: 1px solid rgba(240,192,48,0.20);
+        box-shadow: 0 4px 24px rgba(240,192,48,0.06);
+      }
+      .compare-card.latinate {
+        border: 1px solid rgba(58,40,212,0.20);
+        box-shadow: 0 4px 24px rgba(58,40,212,0.06);
+      }
+      .compare-card:hover { transform: translateY(-4px); }
+      .compare-label {
+        font-size: 10px;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+      .compare-label.gold  { color: #f0c030; }
+      .compare-label.indigo { color: #6e78f5; }
+      .compare-title {
+        font-family: var(--font-display);
+        font-size: 28px;
+        margin-bottom: 1rem;
+        letter-spacing: 0.04em;
+      }
+      .compare-title.gold   { color: #f8d840; }
+      .compare-title.indigo { color: #9aa4ff; }
+      .compare-desc {
+        font-size: 13px;
+        color: rgba(240,236,228,0.48);
+        line-height: 1.72;
+        margin-bottom: 1rem;
+      }
+      .compare-words {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.45rem;
+      }
+      .compare-chip {
+        padding: 3px 10px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-style: italic;
+        font-family: var(--font-serif);
+        color: #faf0e0;
+      }
+      .compare-chip.gold   { background: rgba(240,192,48,0.12);  border: 1px solid rgba(240,192,48,0.20); }
+      .compare-chip.indigo { background: rgba(58,40,212,0.12);   border: 1px solid rgba(58,40,212,0.22); }
+
+      /* ── Codex Box ── */
+      .codex-section {
+        position: relative;
+        z-index: 10;
+        padding: 4rem 2rem;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .codex-box {
+        padding: 2.5rem 3rem;
+        border-radius: 20px;
+        background: rgba(240,192,48,0.055);
+        border: 1px solid rgba(240,192,48,0.20);
+        backdrop-filter: blur(20px);
+        position: relative;
+        overflow: hidden;
+      }
+      .codex-box::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(232,112,112,0.55), rgba(240,192,48,0.55), rgba(90,170,106,0.40), transparent);
+      }
+      .codex-header {
+        font-size: 10px;
+        color: rgba(240,192,48,0.50);
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        margin-bottom: 2rem;
+      }
+      .codex-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 1.5rem;
+        margin-bottom: 1.25rem;
+        padding-bottom: 1.25rem;
+        border-bottom: 1px solid rgba(240,192,48,0.08);
+        font-size: 13px;
+      }
+      .codex-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+      .codex-key {
+        color: rgba(248,216,64,0.58);
+        letter-spacing: 0.08em;
+        min-width: 150px;
+        font-weight: 500;
+        flex-shrink: 0;
+      }
+      .codex-val {
+        color: rgba(240,236,228,0.70);
+        line-height: 1.62;
+      }
+      .codex-val em { color: #f8d840; font-style: normal; font-weight: 600; }
+
+      /* ── Suffix Series ── */
+      .series-section {
+        position: relative;
+        z-index: 10;
+        padding: 4rem 2rem;
+        max-width: 1060px;
+        margin: 0 auto;
+      }
+      .series-grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 1rem;
+        margin-top: 2.5rem;
+      }
+      .series-card {
+        padding: 1.6rem 1rem;
+        border-radius: 14px;
+        background: rgba(8,8,16,0.78);
+        border: 1px solid rgba(240,192,48,0.11);
+        text-align: center;
+        transition: all 0.3s;
+      }
+      .series-card.active {
+        border-color: rgba(240,192,48,0.42);
+        background: rgba(240,192,48,0.08);
+        box-shadow: 0 8px 28px rgba(240,192,48,0.12);
+      }
+      .series-suffix {
+        font-family: var(--font-display);
+        font-size: 24px;
+        letter-spacing: 0.04em;
+        margin-bottom: 0.45rem;
+        background: linear-gradient(135deg, #f87878, #f0c030);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .series-card.active .series-suffix {
+        background: linear-gradient(135deg, #faf0e0, #f0c030);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .series-pos {
+        font-size: 10px;
+        color: rgba(248,216,64,0.35);
+        letter-spacing: 0.10em;
+        text-transform: uppercase;
+        margin-bottom: 0.35rem;
+      }
+      .series-meaning {
+        font-size: 10px;
+        color: rgba(240,236,228,0.36);
+        line-height: 1.5;
+        margin-bottom: 0.35rem;
+      }
+      .series-example {
+        font-size: 10px;
+        color: rgba(248,216,64,0.48);
+        font-style: italic;
+      }
+      .series-domain {
+        margin-top: 0.6rem;
+        font-size: 9px;
+        color: rgba(240,192,48,0.35);
+        letter-spacing: 0.10em;
+      }
+
+      /* ── Origin ── */
+      .origin-section {
+        position: relative;
+        z-index: 10;
+        padding: 6rem 2rem;
+        max-width: 760px;
+        margin: 0 auto;
+        text-align: center;
+      }
+      .origin-glyph {
+        font-size: 84px;
+        line-height: 1;
+        margin-bottom: 1.5rem;
+        display: inline-block;
+        font-family: var(--font-display);
+        letter-spacing: 0.04em;
+        background: linear-gradient(135deg, #f87878 0%, #f0c030 40%, #88d494 70%, #80b8ff 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: glyphBloom 5s ease-in-out infinite;
+      }
+      @keyframes glyphBloom {
+        0%,100% { filter: brightness(1);    opacity: 0.88; }
+        50%      { filter: brightness(1.28); opacity: 1.00; }
+      }
+      .origin-title {
+        font-family: var(--font-serif);
+        font-size: clamp(28px, 4vw, 46px);
+        font-style: italic;
+        color: #faf0e0;
+        margin-bottom: 1.5rem;
+        line-height: 1.28;
+      }
+      .origin-body {
+        font-size: 15px;
+        color: rgba(240,236,228,0.48);
+        line-height: 1.88;
+        max-width: 620px;
+        margin: 0 auto 2.5rem;
+      }
+
+      /* ── Contact ── */
+      .contact-section {
+        position: relative;
+        z-index: 10;
+        padding: 6rem 2rem;
+        text-align: center;
+      }
+      .contact-title {
+        font-family: var(--font-display);
+        font-size: clamp(34px, 5.5vw, 62px);
+        color: #faf0e0;
+        margin-bottom: 1rem;
+        letter-spacing: 0.04em;
+      }
+      .contact-sub {
+        font-size: 14px;
+        color: rgba(240,236,228,0.35);
+        margin-bottom: 2.5rem;
+        max-width: 420px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.75;
+      }
+      .contact-email {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 16px 42px;
+        border-radius: 32px;
+        background: linear-gradient(135deg, #e87070 0%, #f0c030 50%, #5aaa6a 100%);
+        color: #fff;
+        font-size: 16px;
+        font-weight: 600;
+        text-decoration: none;
+        letter-spacing: 0.04em;
+        transition: all 0.3s;
+        box-shadow: 0 4px 26px rgba(240,192,48,0.28);
+      }
+      .contact-email:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 44px rgba(232,112,112,0.38);
+      }
+
+      /* ── Footer ── */
+      .site-footer {
+        position: relative;
+        z-index: 10;
+        padding: 2rem;
+        text-align: center;
+        border-top: 1px solid rgba(240,192,48,0.09);
+        font-size: 11px;
+        color: rgba(240,236,228,0.22);
+        letter-spacing: 0.12em;
+      }
+
+      /* ── Fade-up ── */
+      .fade-up {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.72s ease, transform 0.72s ease;
+      }
+      .fade-up.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Particle Canvas -->
+  <canvas id="ful-canvas" class="ful-canvas"></canvas>
+  <div class="bloom-grid"></div>
+  <div class="meadow-overlay"></div>
+  <div class="vignette"></div>
+
+  <!-- ═══════════════════════════════
+       HEADER
+  ═══════════════════════════════ -->
+  <header class="site-header">
+    <a href="/" class="logo-mark">
+      <div class="logo-icon">FUL</div>
+      <span class="logo-text">ful.kr</span>
+    </a>
+    <nav class="header-nav">
+      <a href="#fullness"  class="nav-link">Fullness</a>
+      <a href="#etymology" class="nav-link">Etymology</a>
+      <a href="#gallery"   class="nav-link">Words</a>
+      <a href="#contact"   class="nav-link">Contact</a>
+    </nav>
+    <div class="domain-badge">suffix · -ful</div>
+  </header>
+
+  <!-- ═══════════════════════════════
+       HERO
+  ═══════════════════════════════ -->
+  <section class="hero-section">
+    <div class="hero-bg-text" aria-hidden="true">FUL</div>
+    <div class="petal-ring" aria-hidden="true"></div>
+
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      The Suffix of Fullness
+    </div>
+
+    <div class="hero-suffix">
+      <span class="dash">—</span>ful
+    </div>
+
+    <p class="hero-origin">Proto-Germanic *fullaz · Old English -full · English -ful</p>
+
+    <p class="hero-meaning">
+      "Full of, characterized by, tending to — the native English suffix that fills every word with its own richest quality."
+    </p>
+
+    <p class="hero-quote">
+      Of all English suffixes, -ful is the most human.<br/>
+      Born not from Latin scholars but from Anglo-Saxon mouths,<br/>
+      it fills language the way sunlight fills a room — naturally, warmly, completely.
+    </p>
+
+    <div class="hero-words">
+      <span class="word-pill rose">beautiful</span>
+      <span class="word-pill">wonderful</span>
+      <span class="word-pill green">peaceful</span>
+      <span class="word-pill rose">graceful</span>
+      <span class="word-pill">joyful</span>
+      <span class="word-pill sky">colorful</span>
+      <span class="word-pill">thankful</span>
+      <span class="word-pill green">hopeful</span>
+      <span class="word-pill">powerful</span>
+      <span class="word-pill rose">soulful</span>
+      <span class="word-pill">mindful</span>
+      <span class="word-pill sky">blissful</span>
+      <span class="word-pill green">cheerful</span>
+      <span class="word-pill">faithful</span>
+      <span class="word-pill rose">playful</span>
+      <span class="word-pill">meaningful</span>
+      <span class="word-pill sky">delightful</span>
+      <span class="word-pill green">bountiful</span>
+      <span class="word-pill">fruitful</span>
+      <span class="word-pill rose">merciful</span>
+    </div>
+
+    <a href="#contact" class="hero-cta">
+      Embrace the Fullness 🌸
+    </a>
+  </section>
+
+  <!-- ═══════════════════════════════
+       STATS
+  ═══════════════════════════════ -->
+  <section class="stats-section">
+    <div class="stat-card fade-up">
+      <div class="stat-number">700+</div>
+      <div class="stat-label">-ful adjectives in English</div>
+    </div>
+    <div class="stat-card fade-up">
+      <div class="stat-number">*fullaz</div>
+      <div class="stat-label">Proto-Germanic root</div>
+    </div>
+    <div class="stat-card fade-up">
+      <div class="stat-number">∞</div>
+      <div class="stat-label">qualities that can fill</div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════
+       LETTERS / CORE PROPERTIES
+  ═══════════════════════════════ -->
+  <section class="letters-section" id="fullness">
+    <p class="section-label">§ 01 · Three Facets of -ful</p>
+
+    <div class="letters-grid">
+      <div class="letter-block fade-up">
+        <div class="letter-char rose">F</div>
+        <div class="letter-name">Fullness</div>
+        <div class="letter-desc">
+          The -ful suffix declares abundance. When you call something <em>wonderful</em>, you are not merely noting wonder's presence — you declare it full, brimming, overflowing with wonder. This is the original meaning: not a drop of the quality held back.
+        </div>
+      </div>
+      <div class="letter-block fade-up">
+        <div class="letter-char sun">U</div>
+        <div class="letter-name">Universality</div>
+        <div class="letter-desc">
+          Unlike Latin-origin suffixes reserved for formal registers, -ful belongs to everyone. It attaches to the simplest nouns — <em>joy</em>, <em>hope</em>, <em>play</em>, <em>care</em> — producing words that feel immediate, personal, and warm. It is the suffix of ordinary human experience made eloquent.
+        </div>
+      </div>
+      <div class="letter-block fade-up">
+        <div class="letter-char meadow">L</div>
+        <div class="letter-name">Living Growth</div>
+        <div class="letter-desc">
+          -ful remains one of the most actively productive suffixes in modern English. New coinages — <em>impactful</em> (1960s), <em>stressful</em> (1960s), <em>eventful</em> (1590s) — continue to emerge. The suffix grows with the language, filling new concepts with character just as it always has.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════
+       FEATURE CARDS
+  ═══════════════════════════════ -->
+  <section class="features-section">
+    <p class="section-label">§ 02 · Defining Properties</p>
+    <h2 class="section-title">The Heart of -ful</h2>
+    <p class="section-subtitle">Three principles that make -ful the most warmly human suffix in the English language.</p>
+
+    <div class="features-grid">
+      <div class="feature-card fade-up">
+        <span class="feature-icon">🌸</span>
+        <div class="feature-title">Native English</div>
+        <p class="feature-desc">-ful is one of the very few productive adjectival suffixes with a purely Germanic, pre-Norman origin. While -ous, -ial, and -ive came with Latin scholarship, -ful was already here — woven into the daily language of Anglo-Saxon England centuries before 1066.</p>
+      </div>
+      <div class="feature-card fade-up">
+        <span class="feature-icon">☀️</span>
+        <div class="feature-title">Emotional Warmth</div>
+        <p class="feature-desc">The words -ful produces are overwhelmingly warm, positive, and personal. <em style="color:#f8d840;">Joyful, hopeful, thankful, peaceful, graceful</em> — the suffix has a natural affinity for the vocabulary of feeling and human virtue, giving it a register unlike any Latin-origin suffix.</p>
+      </div>
+      <div class="feature-card fade-up">
+        <span class="feature-icon">🌿</span>
+        <div class="feature-title">Derivational Range</div>
+        <p class="feature-desc">-ful generates a productive derivational family: the adjective (<em style="color:#f8d840;">hopeful</em>), the adverb (<em style="color:#f8d840;">hopefully</em>), and the abstract noun (<em style="color:#f8d840;">hopefulness</em>). One suffix, three grammatical forms — a complete chain of meaning built from a single seed word.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════
+       ETYMOLOGY TIMELINE
+  ═══════════════════════════════ -->
+  <section class="etymology-section" id="etymology">
+    <p class="section-label" style="text-align:center;">§ 03 · Etymology</p>
+    <h2 class="section-title" style="font-size:clamp(26px,4vw,48px);margin-bottom:0;">From *pele- to -ful</h2>
+
+    <div class="etym-timeline">
+
+      <div class="etym-step fade-up">
+        <div class="etym-era">Proto-Indo-European · c. 4000 BCE</div>
+        <div class="etym-form">*pele- "to fill, be full"</div>
+        <div class="etym-note">
+          At the very root of -ful lies the Proto-Indo-European root <em>*pele-</em>, meaning "to fill" — one of the most ancient and widely distributed roots in the family. It gave rise to Latin <em>plenus</em> (full), Greek <em>plēthos</em> (multitude), Sanskrit <em>pūrṇa</em> (full), and to the Germanic branch that would eventually produce Old English <em>full</em>.
+        </div>
+      </div>
+
+      <div class="etym-step fade-up">
+        <div class="etym-era">Proto-Germanic · c. 2000 BCE</div>
+        <div class="etym-form">*fullaz "full, complete"</div>
+        <div class="etym-note">
+          The PIE root became <em>*fullaz</em> in Proto-Germanic — reconstructed from the parallel forms in all the early Germanic languages: Old Saxon <em>full</em>, Old Frisian <em>ful</em>, Dutch <em>vol</em>, Old High German <em>fol</em>, Old Norse <em>fullr</em>, Gothic <em>fulls</em>. This was already an independent adjective meaning "containing all that can be received; entire, complete."
+        </div>
+      </div>
+
+      <div class="etym-step fade-up">
+        <div class="etym-era">Old English · c. 500–1100 CE</div>
+        <div class="etym-form">full → -full (suffix)</div>
+        <div class="etym-note">
+          In Old English, <em>full</em> began its career as a second element in compound adjectives: <em>wundorfull</em> (wonderful), <em>sorhhfull</em> (sorrowful), <em>synfull</em> (sinful). These were initially transparent compounds — "full of wonder," "full of sorrow" — but over time the second element was reanalysed as a grammatical suffix, not a free-standing word. The double-l was already beginning to simplify.
+        </div>
+      </div>
+
+      <div class="etym-step fade-up">
+        <div class="etym-era">Middle English · c. 1100–1500 CE</div>
+        <div class="etym-form">-full → -ful (single l established)</div>
+        <div class="etym-note">
+          The Norman Conquest brought French and Latin words flooding into English, but -ful held its ground in the native Germanic vocabulary. By 1300 the single-l spelling -ful had stabilised as the suffix form (distinguished from the standalone adjective <em>full</em>). Key Middle English formations: <em>careful</em> (c. 1300), <em>faithful</em> (c. 1300), <em>thankful</em> (c. 1325), <em>graceful</em> (c. 1275), <em>peaceful</em> (c. 1300).
+        </div>
+      </div>
+
+      <div class="etym-step fade-up">
+        <div class="etym-era">Early Modern English · 1500–1700 CE</div>
+        <div class="etym-form">-ful (expanding productivity)</div>
+        <div class="etym-note">
+          The Renaissance saw -ful expand beyond its Germanic base to attach to French and Latin loan-words: <em>beautiful</em> (from French <em>beauté</em>, c. 1540), <em>merciful</em> (c. 1382), <em>plentiful</em> (c. 1520), <em>dreadful</em> (c. 1374). This cross-register productivity showed -ful had fully transcended its Germanic origins to become a universal English suffix.
+        </div>
+      </div>
+
+      <div class="etym-step fade-up">
+        <div class="etym-era">Modern English · 1700 CE → present</div>
+        <div class="etym-form">-ful (fully productive)</div>
+        <div class="etym-note">
+          Modern English continues to generate -ful words freely: <em>eventful</em> (1590s), <em>stressful</em> (1960s), <em>impactful</em> (1960s), <em>mindful</em> (Old English, revived c. 1990s), <em>colorful</em> (American English, 1890s). The suffix also spawned the productive chain <em>-fully</em> (adverb) and <em>-fulness</em> (noun), tripling its lexical reach from every base.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════
+       WORD GALLERY
+  ═══════════════════════════════ -->
+  <section class="gallery-section" id="gallery">
+    <p class="section-label">§ 04 · Word Gallery</p>
+    <h2 class="section-title" style="font-size:clamp(26px,4vw,48px);">Twenty Fullnesses</h2>
+    <p class="section-subtitle">Each word a vessel filled to the brim — the suffix -ful pouring the quality of its root into every syllable.</p>
+
+    <div class="gallery-grid">
+      <div class="gallery-card rose-card fade-up">
+        <div class="gallery-word">beautiful</div>
+        <div class="gallery-gloss">full of beauty</div>
+      </div>
+      <div class="gallery-card sun-card fade-up">
+        <div class="gallery-word">wonderful</div>
+        <div class="gallery-gloss">full of wonder</div>
+      </div>
+      <div class="gallery-card green-card fade-up">
+        <div class="gallery-word">peaceful</div>
+        <div class="gallery-gloss">full of peace</div>
+      </div>
+      <div class="gallery-card sky-card fade-up">
+        <div class="gallery-word">colorful</div>
+        <div class="gallery-gloss">full of colour</div>
+      </div>
+      <div class="gallery-card sun-card fade-up">
+        <div class="gallery-word">powerful</div>
+        <div class="gallery-gloss">full of power</div>
+      </div>
+      <div class="gallery-card rose-card fade-up">
+        <div class="gallery-word">graceful</div>
+        <div class="gallery-gloss">full of grace</div>
+      </div>
+      <div class="gallery-card green-card fade-up">
+        <div class="gallery-word">hopeful</div>
+        <div class="gallery-gloss">full of hope</div>
+      </div>
+      <div class="gallery-card sky-card fade-up">
+        <div class="gallery-word">joyful</div>
+        <div class="gallery-gloss">full of joy</div>
+      </div>
+      <div class="gallery-card rose-card fade-up">
+        <div class="gallery-word">soulful</div>
+        <div class="gallery-gloss">full of feeling</div>
+      </div>
+      <div class="gallery-card sun-card fade-up">
+        <div class="gallery-word">thankful</div>
+        <div class="gallery-gloss">full of thanks</div>
+      </div>
+      <div class="gallery-card green-card fade-up">
+        <div class="gallery-word">mindful</div>
+        <div class="gallery-gloss">full of awareness</div>
+      </div>
+      <div class="gallery-card sky-card fade-up">
+        <div class="gallery-word">blissful</div>
+        <div class="gallery-gloss">full of bliss</div>
+      </div>
+      <div class="gallery-card sun-card fade-up">
+        <div class="gallery-word">meaningful</div>
+        <div class="gallery-gloss">full of meaning</div>
+      </div>
+      <div class="gallery-card rose-card fade-up">
+        <div class="gallery-word">playful</div>
+        <div class="gallery-gloss">full of play</div>
+      </div>
+      <div class="gallery-card green-card fade-up">
+        <div class="gallery-word">faithful</div>
+        <div class="gallery-gloss">full of faith</div>
+      </div>
+      <div class="gallery-card sky-card fade-up">
+        <div class="gallery-word">cheerful</div>
+        <div class="gallery-gloss">full of cheer</div>
+      </div>
+      <div class="gallery-card sun-card fade-up">
+        <div class="gallery-word">fruitful</div>
+        <div class="gallery-gloss">full of fruit</div>
+      </div>
+      <div class="gallery-card rose-card fade-up">
+        <div class="gallery-word">merciful</div>
+        <div class="gallery-gloss">full of mercy</div>
+      </div>
+      <div class="gallery-card green-card fade-up">
+        <div class="gallery-word">bountiful</div>
+        <div class="gallery-gloss">full of bounty</div>
+      </div>
+      <div class="gallery-card sky-card fade-up">
+        <div class="gallery-word">delightful</div>
+        <div class="gallery-gloss">full of delight</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════
+       GERMANIC vs LATINATE
+  ═══════════════════════════════ -->
+  <section class="compare-section">
+    <p class="section-label" style="text-align:center;">§ 05 · A Unique Identity</p>
+    <h2 class="section-title" style="font-size:clamp(26px,4vw,48px);">Germanic Heart, Universal Reach</h2>
+    <p class="section-subtitle">-ful stands apart from all other productive English suffixes by its purely native, pre-Norman origin.</p>
+
+    <div class="compare-grid">
+      <div class="compare-card germanic fade-up">
+        <div class="compare-label gold">Germanic · Native English</div>
+        <div class="compare-title gold">-ful</div>
+        <p class="compare-desc">Descended from Old English <em>full</em> via Proto-Germanic <em>*fullaz</em>. Present in English before the Norman Conquest of 1066, already forming words like <em>wundorfull</em> and <em>sorhhfull</em>. This is the suffix of emotion, character, and everyday human experience — warm, immediate, direct.</p>
+        <div class="compare-words">
+          <span class="compare-chip gold">joyful</span>
+          <span class="compare-chip gold">hopeful</span>
+          <span class="compare-chip gold">soulful</span>
+          <span class="compare-chip gold">playful</span>
+          <span class="compare-chip gold">mindful</span>
+          <span class="compare-chip gold">faithful</span>
+        </div>
+      </div>
+      <div class="compare-card latinate fade-up">
+        <div class="compare-label indigo">Latinate · Post-Norman Arrival</div>
+        <div class="compare-title indigo">-ous / -ial / -ive</div>
+        <p class="compare-desc">Arrived in English via Norman French and Latin scholarship after 1066. These suffixes occupy the formal, academic, and official registers of English — the language of law courts, universities, and scientific treatises. Precise, authoritative, and architecturally complex.</p>
+        <div class="compare-words">
+          <span class="compare-chip indigo">glorious</span>
+          <span class="compare-chip indigo">celestial</span>
+          <span class="compare-chip indigo">creative</span>
+          <span class="compare-chip indigo">official</span>
+          <span class="compare-chip indigo">precious</span>
+          <span class="compare-chip indigo">potential</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════
+       CODEX BOX
+  ═══════════════════════════════ -->
+  <section class="codex-section">
+    <div class="codex-box fade-up">
+      <div class="codex-header">// Lexical Profile · ful.kr · F01–F05</div>
+
+      <div class="codex-row">
+        <span class="codex-key">suffix</span>
+        <span class="codex-val"><em>-ful</em> — adjectival suffix (also <em>-fully</em> adverb; <em>-fulness</em> noun); single-l form established by Middle English</span>
+      </div>
+      <div class="codex-row">
+        <span class="codex-key">origin</span>
+        <span class="codex-val">PIE <em>*pele-</em> → Proto-Germanic <em>*fullaz</em> → Old English <em>full / -full</em> → Middle English <em>-ful</em></span>
+      </div>
+      <div class="codex-row">
+        <span class="codex-key">function</span>
+        <span class="codex-val">Forms <em>adjectives</em> from nouns meaning "full of, characterized by, tending to" the quality or quantity of the base noun</span>
+      </div>
+      <div class="codex-row">
+        <span class="codex-key">register</span>
+        <span class="codex-val"><em>Universal</em> — spans all registers from informal speech (<em>playful</em>) to literary (<em>graceful</em>) and formal prose (<em>meaningful</em>)</span>
+      </div>
+      <div class="codex-row">
+        <span class="codex-key">productivity</span>
+        <span class="codex-val"><em>Very high</em> — over 700 adjectives; chain: <em>hope → hopeful → hopefully → hopefulness</em>; still actively forming new words today</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════
+       SUFFIX SERIES
+  ═══════════════════════════════ -->
+  <section class="series-section">
+    <p class="section-label" style="text-align:center;">§ 06 · Suffix Series</p>
+    <h2 class="section-title" style="font-size:clamp(24px,3.8vw,44px);margin-bottom:0.5rem;">The Language Collection</h2>
+    <p class="section-subtitle">Six companion domains mapping the suffix landscape of the English lexicon.</p>
+
+    <div class="series-grid">
+      <div class="series-card fade-up">
+        <div class="series-suffix">-ous</div>
+        <div class="series-pos">adj</div>
+        <div class="series-meaning">full of / having the quality</div>
+        <div class="series-example">glorious</div>
+        <div class="series-domain">ous.kr</div>
+      </div>
+      <div class="series-card fade-up">
+        <div class="series-suffix">-ize</div>
+        <div class="series-pos">verb</div>
+        <div class="series-meaning">to make / subject to</div>
+        <div class="series-example">organize</div>
+        <div class="series-domain">ize.kr</div>
+      </div>
+      <div class="series-card fade-up">
+        <div class="series-suffix">-ive</div>
+        <div class="series-pos">adj</div>
+        <div class="series-meaning">tending to</div>
+        <div class="series-example">creative</div>
+        <div class="series-domain">ive.kr</div>
+      </div>
+      <div class="series-card fade-up">
+        <div class="series-suffix">-ity</div>
+        <div class="series-pos">noun</div>
+        <div class="series-meaning">state / quality</div>
+        <div class="series-example">clarity</div>
+        <div class="series-domain">ity.kr</div>
+      </div>
+      <div class="series-card fade-up">
+        <div class="series-suffix">-ify</div>
+        <div class="series-pos">verb</div>
+        <div class="series-meaning">to make / become</div>
+        <div class="series-example">clarify</div>
+        <div class="series-domain">ify.kr</div>
+      </div>
+      <div class="series-card fade-up">
+        <div class="series-suffix">-ial</div>
+        <div class="series-pos">adj</div>
+        <div class="series-meaning">of / relating to</div>
+        <div class="series-example">celestial</div>
+        <div class="series-domain">ial.kr</div>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:center;margin-top:1rem;">
+      <div class="series-card active fade-up" style="min-width:160px;max-width:200px;">
+        <div class="series-suffix">-ful</div>
+        <div class="series-pos">adj</div>
+        <div class="series-meaning">full of / characterized by</div>
+        <div class="series-example">beautiful</div>
+        <div class="series-domain">ful.kr · current</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════
+       ORIGIN NARRATIVE
+  ═══════════════════════════════ -->
+  <section class="origin-section">
+    <div class="origin-glyph fade-up">充</div>
+    <h2 class="origin-title fade-up">
+      The Suffix That Was<br/>Always Already Here
+    </h2>
+    <p class="origin-body fade-up">
+      Every other productive English suffix in this series — <em style="color:#f8d840;">-ous, -ize, -ive, -ity, -ify, -ial</em> — arrived as a foreign import, carried on the ships of Norman nobles, in the manuscripts of Roman scholars, through the mouths of French clerics. But <em style="color:#faf0e0;">-ful</em> was already here. It was here in the mouths of Anglo-Saxon farmers and poets, in the songs of wandering bards, in the grief of mothers and the prayers of soldiers. It descends in an unbroken line from the Proto-Indo-European root <em style="color:#f8d840;">*pele-</em>, meaning simply "to fill" — perhaps the most human desire of all. To fill a word with joy. To fill a life with grace. To fill the world with beauty. That is what -ful has always done: it does not describe qualities from the outside. It pours them in, all the way to the brim, and then a little more.
+    </p>
+    <a href="#contact" class="hero-cta fade-up">
+      Inquire about ful.kr 🌸
+    </a>
+  </section>
+
+  <!-- ═══════════════════════════════
+       CONTACT
+  ═══════════════════════════════ -->
+  <section class="contact-section" id="contact">
+    <h2 class="contact-title fade-up">Fill the Conversation</h2>
+    <p class="contact-sub fade-up">
+      Interested in ful.kr? Domain inquiries,<br/>collaborations, and language projects welcome.
+    </p>
+    <a href="mailto:hello@ful.kr" class="contact-email fade-up">
+      🌸 hello@ful.kr
+    </a>
+  </section>
+
+  <!-- ═══════════════════════════════
+       FOOTER
+  ═══════════════════════════════ -->
+  <footer class="site-footer">
+    © 2026 ful.kr · The Suffix of Fullness · *pele- → *fullaz → -full → -ful
+  </footer>
+
+
+  <!-- ═══════════════════════════════
+       PARTICLE SYSTEM
+  ═══════════════════════════════ -->
+  <script>
+  (function () {
+    'use strict';
+
+    const canvas = document.getElementById('ful-canvas');
+    const ctx    = canvas.getContext('2d');
+
+    /* ── Palette ── */
+    const PETAL   = '#e87070';
+    const SUN     = '#f0c030';
+    const MEADOW  = '#5aaa6a';
+    const SKY     = '#5090e0';
+    const IVORY   = 'rgba(250,240,224,0.80)';
+
+    let W, H;
+    function resize() {
+      W = canvas.width  = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    /* ════════════════════════════════
+       Layer 1 · BloomPetal
+       Softly drifting petal shapes
+    ════════════════════════════════ */
+    class BloomPetal {
+      constructor() { this.reset(true); }
+      reset(init) {
+        this.x      = Math.random() * W;
+        this.y      = init ? Math.random() * H : H + 16;
+        this.vx     = (Math.random() - 0.5) * 0.45;
+        this.vy     = -(0.22 + Math.random() * 0.40);
+        this.angle  = Math.random() * Math.PI * 2;
+        this.spin   = (Math.random() - 0.5) * 0.022;
+        this.rx     = 3 + Math.random() * 6;
+        this.ry     = 2 + Math.random() * 4;
+        this.alpha  = 0;
+        this.peak   = 0.18 + Math.random() * 0.22;
+        this.sway   = 0;
+        this.swayS  = 0.020 + Math.random() * 0.020;
+        const C     = [PETAL, SUN, MEADOW, SKY, IVORY];
+        this.col    = C[Math.floor(Math.random() * C.length)];
+        this.lifeMax= 200 + Math.random() * 140;
+        this.life   = init ? Math.random() * this.lifeMax : 0;
+      }
+      update() {
+        this.life++;
+        this.sway += this.swayS;
+        this.x  += this.vx + Math.sin(this.sway) * 0.45;
+        this.y  += this.vy;
+        this.angle += this.spin;
+        const t = this.life / this.lifeMax;
+        if (t < 0.12)      this.alpha = (t / 0.12) * this.peak;
+        else if (t < 0.72) this.alpha = this.peak;
+        else               this.alpha = this.peak * (1 - (t - 0.72) / 0.28);
+        if (this.life >= this.lifeMax || this.y < -20) this.reset(false);
+      }
+      draw() {
+        if (this.alpha <= 0) return;
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.angle);
+        ctx.globalAlpha = this.alpha;
+        ctx.fillStyle   = this.col;
+        /* petal: rotated ellipse */
+        ctx.beginPath();
+        ctx.ellipse(0, 0, this.rx, this.ry, 0, 0, Math.PI * 2);
+        ctx.fill();
+        /* second lobe */
+        ctx.globalAlpha = this.alpha * 0.45;
+        ctx.beginPath();
+        ctx.ellipse(this.rx * 0.6, 0, this.rx * 0.65, this.ry * 0.65, Math.PI * 0.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    /* ════════════════════════════════
+       Layer 2 · FullWord
+       Floating -ful adjectives
+    ════════════════════════════════ */
+    const FUL_WORDS = [
+      'beautiful','wonderful','peaceful','joyful','hopeful',
+      'graceful','colorful','thankful','powerful','soulful',
+      'mindful','blissful','cheerful','faithful','playful',
+      'meaningful','delightful','bountiful','fruitful','merciful',
+      'helpful','skillful','restful','gleeful','bashful',
+      'insightful','successful','resourceful','eventful','stressful'
+    ];
+    class FullWord {
+      constructor() { this.reset(true); }
+      reset(init) {
+        this.x    = Math.random() * W;
+        this.y    = init ? Math.random() * H : H + 28;
+        this.vy   = -(0.14 + Math.random() * 0.24);
+        this.vx   = (Math.random() - 0.5) * 0.15;
+        this.word = FUL_WORDS[Math.floor(Math.random() * FUL_WORDS.length)];
+        this.size = 10 + Math.random() * 5;
+        this.alpha= 0;
+        this.peak = 0.11 + Math.random() * 0.12;
+        const C   = [PETAL, SUN, MEADOW, SKY, IVORY];
+        this.col  = C[Math.floor(Math.random() * C.length)];
+      }
+      update() {
+        this.x += this.vx; this.y += this.vy;
+        this.alpha = Math.min(this.alpha + 0.0045, this.peak);
+        if (this.y < -40) this.reset(false);
+      }
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+        ctx.fillStyle   = this.col;
+        ctx.font        = `italic ${this.size}px "Lora", Georgia, serif`;
+        ctx.fillText(this.word, this.x, this.y);
+        ctx.restore();
+      }
+    }
+
+    /* ════════════════════════════════
+       Layer 3 · SunSpeck
+       Warm ambient specks
+    ════════════════════════════════ */
+    class SunSpeck {
+      constructor() { this.reset(true); }
+      reset(init) {
+        this.x    = Math.random() * W;
+        this.y    = init ? Math.random() * H : H + 6;
+        this.vy   = -(0.08 + Math.random() * 0.18);
+        this.vx   = (Math.random() - 0.5) * 0.18;
+        this.r    = 0.8 + Math.random() * 2.2;
+        this.alpha= 0;
+        this.peak = 0.18 + Math.random() * 0.28;
+        const C   = [PETAL, SUN, MEADOW, SKY, '#f8d840'];
+        this.col  = C[Math.floor(Math.random() * C.length)];
+      }
+      update() {
+        this.x += this.vx; this.y += this.vy;
+        this.alpha = Math.min(this.alpha + 0.007, this.peak);
+        if (this.y < -8) this.reset(false);
+      }
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+        ctx.fillStyle   = this.col;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    /* ════════════════════════════════
+       Layer 4 · GlowRing
+       Soft expanding glow rings
+    ════════════════════════════════ */
+    class GlowRing {
+      constructor() { this.reset(true); }
+      reset(init) {
+        this.x    = Math.random() * W;
+        this.y    = Math.random() * H;
+        this.r    = 10 + Math.random() * 28;
+        this.maxR = this.r + 36 + Math.random() * 48;
+        this.dr   = 0.18 + Math.random() * 0.28;
+        this.baseA= 0.12 + Math.random() * 0.10;
+        const C   = [PETAL, SUN, MEADOW, SKY];
+        this.col  = C[Math.floor(Math.random() * C.length)];
+        if (init) this.r = Math.random() * this.maxR;
+      }
+      update() {
+        this.r += this.dr;
+        if (this.r > this.maxR) this.reset(false);
+      }
+      draw() {
+        const life = 1 - (this.r - 10) / (this.maxR - 10);
+        ctx.save();
+        ctx.globalAlpha = this.baseA * life;
+        ctx.strokeStyle = this.col;
+        ctx.lineWidth   = 1;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.restore();
+      }
+    }
+
+    /* ── Pools ── */
+    const petals = Array.from({ length: 38 }, () => new BloomPetal());
+    const words  = Array.from({ length: 26 }, () => new FullWord());
+    const specks = Array.from({ length: 65 }, () => new SunSpeck());
+    const rings  = Array.from({ length: 10 }, () => new GlowRing());
+
+    /* ── Loop ── */
+    function loop() {
+      ctx.clearRect(0, 0, W, H);
+      rings.forEach(p  => { p.update(); p.draw(); });
+      specks.forEach(p => { p.update(); p.draw(); });
+      words.forEach(p  => { p.update(); p.draw(); });
+      petals.forEach(p => { p.update(); p.draw(); });
+      requestAnimationFrame(loop);
+    }
+    loop();
+
+    /* ── Scroll fade-up ── */
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  })();
+  </script>
+
+</body>
+</html>
