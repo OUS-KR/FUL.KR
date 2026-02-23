@@ -1,0 +1,616 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ful.kr</title>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;min-height:100svh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#0e0508}
+
+/* background orbs */
+.bg-orb{position:fixed;border-radius:50%;filter:blur(110px);pointer-events:none;z-index:0}
+.bg-orb-1{width:680px;height:480px;top:-210px;left:-160px;background:radial-gradient(ellipse,rgba(210,70,110,0.18)0%,transparent 70%)}
+.bg-orb-2{width:540px;height:540px;bottom:-200px;right:-140px;background:radial-gradient(ellipse,rgba(240,100,150,0.15)0%,transparent 70%)}
+.bg-orb-3{width:420px;height:310px;top:38%;left:54%;background:radial-gradient(ellipse,rgba(180,50,90,0.10)0%,transparent 70%)}
+.bg-orb-4{width:330px;height:250px;bottom:10%;left:7%;background:radial-gradient(ellipse,rgba(220,80,120,0.08)0%,transparent 70%)}
+.bg-orb-5{width:270px;height:200px;top:16%;right:11%;background:radial-gradient(ellipse,rgba(255,120,170,0.07)0%,transparent 70%)}
+.bg-orb-6{width:210px;height:170px;bottom:26%;right:26%;background:radial-gradient(ellipse,rgba(190,55,95,0.05)0%,transparent 70%)}
+
+/* blossom dust field */
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(circle,rgba(230,90,130,0.052) 1px,transparent 1px) 0 0/54px 54px,
+    radial-gradient(circle,rgba(210,70,110,0.036) 1px,transparent 1px) 27px 27px/54px 54px,
+    radial-gradient(circle,rgba(255,130,175,0.026) 1px,transparent 1px) 13px 13px/90px 90px}
+
+/* scene */
+.scene{perspective:900px;position:relative;z-index:1}
+
+/* card wrap */
+.card-wrap{
+  width:380px;height:240px;position:relative;
+  transform-style:preserve-3d;border-radius:16px;cursor:pointer;
+  animation:card-enter 1.2s cubic-bezier(.16,1.44,.34,1) both
+}
+@keyframes card-enter{
+  from{opacity:0;transform:rotateX(8deg) rotateY(-26deg) scale(.80) translateX(-16px);filter:blur(10px) brightness(2.0)}
+  to{opacity:1;transform:none;filter:none}
+}
+.card-wrap.is-idle{animation:card-enter 1.2s cubic-bezier(.16,1.44,.34,1) both,float-idle 9.5s ease-in-out 1.2s infinite}
+@keyframes float-idle{
+  0%,100%{transform:rotateX(3.5deg) rotateY(-4.5deg) translateY(0)}
+  25%{transform:rotateX(-3deg) rotateY(5deg) translateY(-9px)}
+  55%{transform:rotateX(2.8deg) rotateY(-3deg) translateY(-6px)}
+  75%{transform:rotateX(-2.2deg) rotateY(4.5deg) translateY(-8px)}
+}
+
+/* holographic overlay */
+.card-holo{
+  position:absolute;inset:0;border-radius:16px;z-index:8;pointer-events:none;opacity:0;
+  background:conic-gradient(from var(--r,0deg) at var(--mx,50%) var(--my,50%),
+    rgba(240,100,150,0.22) 0deg,rgba(170,50,90,0.12) 60deg,
+    rgba(255,190,220,0.20) 120deg,rgba(150,40,80,0.10) 180deg,
+    rgba(240,100,150,0.18) 240deg,rgba(200,70,110,0.14) 300deg,
+    rgba(240,100,150,0.22) 360deg);
+  mix-blend-mode:screen;transition:opacity .3s
+}
+.card-wrap:hover .card-holo{opacity:1}
+
+/* spotlight */
+.card-spot{
+  position:absolute;inset:0;border-radius:16px;z-index:7;pointer-events:none;opacity:0;
+  background:radial-gradient(ellipse 160px 110px at var(--mx,50%) var(--my,50%),rgba(255,150,190,0.17) 0%,transparent 70%);
+  transition:opacity .3s
+}
+.card-wrap:hover .card-spot{opacity:1}
+
+/* shimmer */
+.card-shimmer{
+  position:absolute;inset:0;border-radius:16px;z-index:6;pointer-events:none;overflow:hidden
+}
+.card-shimmer::before,.card-shimmer::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(112deg,transparent 28%,rgba(255,150,190,0.17) 50%,transparent 72%);
+  animation:full-sweep 6.8s ease-in-out infinite
+}
+.card-shimmer::after{animation-delay:3.4s;background:linear-gradient(112deg,transparent 28%,rgba(220,80,120,0.11) 50%,transparent 72%)}
+@keyframes full-sweep{
+  0%{transform:translateX(-130%) skewX(-13deg)}
+  58%,100%{transform:translateX(230%) skewX(-13deg)}
+}
+
+/* card texture — soft weave */
+.card-texture{
+  position:absolute;inset:0;border-radius:16px;z-index:5;pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ccircle cx='30' cy='30' r='.8' fill='rgba(240,100,150,0.06)'/%3E%3C/svg%3E") repeat;
+  opacity:.78
+}
+
+/* card edge */
+.card-edge{
+  position:absolute;inset:0;border-radius:16px;z-index:9;pointer-events:none;
+  box-shadow:inset 0 1px 0 rgba(255,180,210,0.52),inset 0 -1px 0 rgba(130,35,65,0.26),inset 1px 0 0 rgba(240,130,170,0.22),inset -1px 0 0 rgba(130,35,65,0.20)
+}
+
+/* main card */
+.card{
+  width:100%;height:100%;border-radius:16px;overflow:hidden;position:relative;
+  background:linear-gradient(130deg,rgba(210,70,110,0.22) 0%,rgba(140,40,70,0.11) 28%,rgba(240,100,150,0.18) 58%,rgba(170,55,90,0.13) 100%);
+  backdrop-filter:blur(24px) saturate(175%) brightness(1.09);
+  border:1px solid rgba(230,90,135,0.30);
+  box-shadow:0 38px 80px rgba(8,2,4,.78),0 10px 26px rgba(8,2,4,.56),inset 0 1px 0 rgba(255,180,210,0.46),inset 0 2px 8px rgba(220,80,120,0.11)
+}
+
+/* card inner art */
+.card-inner-art{position:absolute;inset:0;z-index:1;pointer-events:none}
+
+/* bloom particle container */
+#bloomContainer{position:absolute;inset:0;z-index:4;pointer-events:none;overflow:hidden;border-radius:16px}
+.bloom{position:absolute;border-radius:50% 30% 50% 30%;animation:bloom-rise linear infinite;opacity:0}
+@keyframes bloom-rise{
+  0%  {opacity:0;transform:translate(0,0) scale(.4) rotate(0deg)}
+  12% {opacity:.88}
+  80% {opacity:.55}
+  100%{opacity:0;transform:translate(var(--bx,5px),var(--by,-64px)) scale(1.1) rotate(var(--br,120deg))}
+}
+
+/* letter tag */
+.letter-tag{
+  position:absolute;top:14px;left:16px;z-index:10;display:flex;gap:5px;align-items:flex-end
+}
+.ful-main{
+  font-size:28px;font-weight:900;letter-spacing:-.03em;
+  color:rgba(255,190,215,0.96);line-height:1;
+  text-shadow:0 0 22px rgba(230,90,135,0.65),0 0 6px rgba(230,90,135,0.40)
+}
+.ful-dot{color:rgba(210,70,110,0.82)}
+.suffix-stack{display:flex;flex-direction:column;gap:2px;margin-bottom:2px}
+.suffix-tag{font-size:6px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:rgba(255,160,195,0.68);
+  background:rgba(200,65,105,0.18);border:1px solid rgba(230,90,135,0.28);
+  border-radius:3px;padding:1px 4px;white-space:nowrap}
+
+/* hover meaning overlay */
+.card-meanings{
+  position:absolute;inset:0;z-index:11;display:flex;align-items:center;justify-content:center;
+  gap:18px;opacity:0;pointer-events:none;transition:opacity .35s;
+  background:rgba(14,5,8,.56);backdrop-filter:blur(4px) saturate(140%);border-radius:16px
+}
+.card-wrap:hover .card-meanings{opacity:1}
+.meaning-item{display:flex;flex-direction:column;align-items:center;gap:5px;max-width:54px}
+.meaning-icon{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;background:rgba(200,65,105,0.22);border:1px solid rgba(230,90,135,0.36)}
+.meaning-label{font-size:6.2px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,175,205,0.82);text-align:center;line-height:1.3}
+
+/* divider lines */
+.card-vline{position:absolute;top:18px;bottom:18px;left:50%;width:1px;background:linear-gradient(to bottom,transparent,rgba(230,90,135,0.18) 30%,rgba(230,90,135,0.18) 70%,transparent);z-index:2;pointer-events:none}
+.card-hline{position:absolute;left:18px;right:18px;top:50%;height:1px;background:linear-gradient(to right,transparent,rgba(230,90,135,0.13) 30%,rgba(230,90,135,0.13) 70%,transparent);z-index:2;pointer-events:none}
+
+/* card content */
+.card-content{position:absolute;inset:0;z-index:10;display:flex;align-items:flex-end;padding:14px 18px;pointer-events:none}
+.card-name{flex:1}
+.name-main{font-size:22px;font-weight:900;letter-spacing:-.02em;color:rgba(255,195,220,0.96);line-height:1;text-shadow:0 0 18px rgba(230,90,135,0.52)}
+.name-dot{color:rgba(210,70,110,0.82)}
+.name-sub{font-size:8px;font-weight:600;letter-spacing:.10em;text-transform:uppercase;color:rgba(245,145,185,0.55);margin-top:3px}
+.card-meta{position:absolute;top:18px;right:18px;display:flex;flex-direction:column;gap:3px;align-items:flex-end}
+.meta-row{font-size:6.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:rgba(245,145,185,0.50)}
+.card-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px;margin-left:10px}
+.badge{display:flex;align-items:center;gap:4px;background:rgba(200,65,105,0.22);border:1px solid rgba(230,90,135,0.36);border-radius:6px;padding:3px 8px}
+.badge-glyph{font-size:11px}
+.badge-label{font-size:9px;font-weight:800;letter-spacing:.10em;color:rgba(255,195,220,0.93)}
+.domain-url{font-size:8.5px;font-weight:700;letter-spacing:.06em;color:rgba(245,145,185,0.55)}
+.domain-tld{color:rgba(210,70,110,0.78)}
+
+/* SVG keyframe animations */
+@keyframes cup-fill    {0%{transform:scaleY(0);transform-origin:bottom}100%{transform:scaleY(1);transform-origin:bottom}}
+@keyframes overflow-drip{0%{opacity:0;transform:translateY(-4px)}100%{opacity:.80;transform:translateY(0)}}
+@keyframes petal-bloom {0%{transform:scale(0) rotate(-20deg);opacity:0}100%{transform:scale(1) rotate(0deg);opacity:1}}
+@keyframes word-appear {0%{opacity:0;transform:translateY(5px)}100%{opacity:1;transform:translateY(0)}}
+@keyframes line-extend {0%{stroke-dashoffset:300}100%{stroke-dashoffset:0}}
+@keyframes ring-ripple {0%{r:10;opacity:.80}100%{r:26;opacity:0}}
+@keyframes bar-fill    {0%{width:0}100%{width:var(--bw,60px)}}
+@keyframes glow-pulse  {0%,100%{opacity:.60;filter:drop-shadow(0 0 4px rgba(240,100,150,0.45))}
+                         50%{opacity:1;filter:drop-shadow(0 0 12px rgba(240,100,150,0.80))}}
+@keyframes float-drop  {0%{stroke-dashoffset:80}100%{stroke-dashoffset:0}}
+@keyframes spin-cw     {from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<div class="bg-orb bg-orb-1"></div>
+<div class="bg-orb bg-orb-2"></div>
+<div class="bg-orb bg-orb-3"></div>
+<div class="bg-orb bg-orb-4"></div>
+<div class="bg-orb bg-orb-5"></div>
+<div class="bg-orb bg-orb-6"></div>
+
+<div class="scene">
+  <div class="card-wrap is-idle" id="cardWrap">
+    <div class="card-holo" id="cardHolo"></div>
+    <div class="card-spot" id="cardSpot"></div>
+    <div class="card-shimmer"></div>
+    <div class="card-texture"></div>
+    <div class="card-edge"></div>
+
+    <div class="card" id="cardFace">
+      <div class="card-inner-art">
+        <svg width="380" height="240" viewBox="0 0 380 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="rg-cup" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="rgba(255,190,215,0.95)"/>
+              <stop offset="100%" stop-color="rgba(200,65,105,0.55)"/>
+            </radialGradient>
+            <radialGradient id="rg-rose-glow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="rgba(230,90,135,0.30)"/>
+              <stop offset="100%" stop-color="transparent"/>
+            </radialGradient>
+            <radialGradient id="rg-bg-amb" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="rgba(210,70,110,0.22)"/>
+              <stop offset="100%" stop-color="transparent"/>
+            </radialGradient>
+            <linearGradient id="lg-fill-liquid" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="rgba(255,140,185,0.75)"/>
+              <stop offset="100%" stop-color="rgba(200,60,100,0.88)"/>
+            </linearGradient>
+            <filter id="f-rose-glow" x="-70%" y="-70%" width="240%" height="240%">
+              <feGaussianBlur stdDeviation="6" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="f-cup-glow" x="-100%" y="-100%" width="300%" height="300%">
+              <feGaussianBlur stdDeviation="10" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="f-soft" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="3.5" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <clipPath id="card-clip"><rect width="380" height="240" rx="16"/></clipPath>
+            <clipPath id="cup-clip">
+              <path d="M 74,68 L 84,148 Q 84,154 90,154 L 130,154 Q 136,154 136,148 L 146,68 Z"/>
+            </clipPath>
+          </defs>
+
+          <g clip-path="url(#card-clip)">
+            <!-- ambient background -->
+            <ellipse cx="112" cy="96" rx="168" ry="118" fill="url(#rg-bg-amb)" opacity=".48"/>
+            <ellipse cx="296" cy="162" rx="128" ry="88" fill="url(#rg-rose-glow)" opacity=".35"/>
+
+            <!-- ══ OVERFLOWING CUP (center-left) ══ -->
+            <g transform="translate(0,0)" style="animation:glow-pulse 2.8s ease-in-out 1.8s infinite">
+              <!-- cup glow -->
+              <ellipse cx="110" cy="148" rx="48" ry="18" fill="url(#rg-rose-glow)" opacity=".22"/>
+              <!-- ripple rings below cup -->
+              <circle cx="110" cy="154" r="10" stroke="rgba(230,90,135,0.38)" stroke-width=".8" fill="none"
+                style="animation:ring-ripple 2.8s ease-out 2.4s infinite"/>
+              <circle cx="110" cy="154" r="10" stroke="rgba(220,80,125,0.25)" stroke-width=".6" fill="none"
+                style="animation:ring-ripple 2.8s ease-out 3.6s infinite"/>
+
+              <!-- liquid fill inside cup (clipped) -->
+              <g clip-path="url(#cup-clip)">
+                <rect x="74" y="88" width="72" height="66"
+                  fill="url(#lg-fill-liquid)" opacity=".72"
+                  style="animation:cup-fill .9s ease-out 2.0s both"/>
+                <!-- liquid surface wave -->
+                <path d="M 74,90 Q 90,85 110,90 Q 130,95 146,90"
+                  stroke="rgba(255,190,215,0.60)" stroke-width="1.2" fill="none"
+                  style="animation:word-appear .6s ease-out 2.6s both"/>
+              </g>
+
+              <!-- cup outline -->
+              <path d="M 74,68 L 84,148 Q 84,154 90,154 L 130,154 Q 136,154 136,148 L 146,68 Z"
+                stroke="url(#rg-cup)" stroke-width="1.5" fill="none"
+                filter="url(#f-cup-glow)"
+                style="animation:word-appear .7s ease-out 1.8s both"/>
+              <!-- cup rim -->
+              <line x1="70" y1="68" x2="150" y2="68"
+                stroke="rgba(255,190,215,0.65)" stroke-width="1.5"
+                style="animation:line-extend .5s ease-out 1.8s both"/>
+              <!-- cup base line -->
+              <line x1="84" y1="154" x2="136" y2="154"
+                stroke="rgba(230,130,165,0.45)" stroke-width="1"
+                style="animation:line-extend .4s ease-out 2.0s both"/>
+
+              <!-- overflow drips -->
+              <g style="animation:overflow-drip .8s ease-out 2.8s both">
+                <path d="M 80,68 Q 76,58 78,50 Q 80,42 76,35"
+                  stroke="rgba(240,120,160,0.55)" stroke-width="1.2" fill="none"
+                  stroke-dasharray="80" stroke-dashoffset="80"
+                  style="animation:float-drop .7s ease-out 2.8s both"/>
+                <circle cx="76" cy="33" r="2.5" fill="rgba(240,120,160,0.65)"
+                  style="animation:word-appear .4s ease-out 3.2s both"/>
+
+                <path d="M 140,68 Q 146,57 144,48 Q 142,40 148,32"
+                  stroke="rgba(230,100,145,0.50)" stroke-width="1.2" fill="none"
+                  stroke-dasharray="80" stroke-dashoffset="80"
+                  style="animation:float-drop .7s ease-out 3.0s both"/>
+                <circle cx="148" cy="30" r="2.2" fill="rgba(230,100,145,0.60)"
+                  style="animation:word-appear .4s ease-out 3.4s both"/>
+
+                <path d="M 110,68 Q 112,56 110,46"
+                  stroke="rgba(250,140,178,0.45)" stroke-width="1" fill="none"
+                  stroke-dasharray="80" stroke-dashoffset="80"
+                  style="animation:float-drop .6s ease-out 3.1s both"/>
+                <circle cx="110" cy="44" r="2.0" fill="rgba(250,140,178,0.55)"
+                  style="animation:word-appear .4s ease-out 3.5s both"/>
+              </g>
+            </g>
+
+            <!-- ══ WORD TRANSFORMATION CHAIN ══ -->
+            <!-- row 1 -->
+            <g style="animation:word-appear 1.0s ease-out 2.2s both">
+              <rect x="172" y="50" width="46" height="18" rx="3.5"
+                fill="rgba(190,55,95,0.14)" stroke="rgba(220,85,125,0.28)" stroke-width=".8"/>
+              <text x="195" y="62" font-family="Inter,sans-serif" font-size="7" font-weight="700"
+                fill="rgba(255,175,205,0.82)" text-anchor="middle" letter-spacing=".03em">wonder</text>
+              <line x1="218" y1="59" x2="232" y2="59"
+                stroke="rgba(220,85,125,0.45)" stroke-width="1.1"
+                stroke-dasharray="60" stroke-dashoffset="60"
+                style="animation:line-extend .4s ease-out 2.6s both"/>
+              <polygon points="232,55.5 239,59 232,62.5" fill="rgba(220,85,125,0.60)"
+                style="animation:word-appear .3s ease-out 2.9s both"/>
+              <rect x="240" y="45" width="62" height="28" rx="5"
+                fill="rgba(190,55,95,0.20)" stroke="rgba(240,110,155,0.44)" stroke-width=".9"
+                filter="url(#f-soft)"/>
+              <text x="271" y="62" font-family="Inter,sans-serif" font-size="8.5" font-weight="800"
+                fill="rgba(255,200,220,0.96)" text-anchor="middle" letter-spacing=".02em">wonder·ful</text>
+            </g>
+            <!-- row 2 -->
+            <g style="animation:word-appear 1.0s ease-out 2.6s both">
+              <rect x="172" y="82" width="46" height="18" rx="3.5"
+                fill="rgba(190,55,95,0.12)" stroke="rgba(220,85,125,0.23)" stroke-width=".8"/>
+              <text x="195" y="94" font-family="Inter,sans-serif" font-size="7" font-weight="700"
+                fill="rgba(245,160,192,0.74)" text-anchor="middle" letter-spacing=".03em">grace</text>
+              <line x1="218" y1="91" x2="232" y2="91"
+                stroke="rgba(220,85,125,0.38)" stroke-width="1"
+                stroke-dasharray="60" stroke-dashoffset="60"
+                style="animation:line-extend .4s ease-out 3.0s both"/>
+              <polygon points="232,87.5 239,91 232,94.5" fill="rgba(220,85,125,0.52)"
+                style="animation:word-appear .3s ease-out 3.3s both"/>
+              <rect x="240" y="77" width="58" height="28" rx="5"
+                fill="rgba(190,55,95,0.17)" stroke="rgba(230,100,142,0.38)" stroke-width=".8"/>
+              <text x="269" y="94" font-family="Inter,sans-serif" font-size="8.5" font-weight="800"
+                fill="rgba(250,192,215,0.92)" text-anchor="middle" letter-spacing=".02em">grace·ful</text>
+            </g>
+            <!-- row 3 -->
+            <g style="animation:word-appear 1.0s ease-out 3.0s both">
+              <rect x="172" y="114" width="46" height="18" rx="3.5"
+                fill="rgba(190,55,95,0.10)" stroke="rgba(220,85,125,0.20)" stroke-width=".8"/>
+              <text x="195" y="126" font-family="Inter,sans-serif" font-size="7" font-weight="700"
+                fill="rgba(230,145,178,0.66)" text-anchor="middle" letter-spacing=".03em">power</text>
+              <line x1="218" y1="123" x2="232" y2="123"
+                stroke="rgba(220,85,125,0.32)" stroke-width=".9"
+                stroke-dasharray="60" stroke-dashoffset="60"
+                style="animation:line-extend .4s ease-out 3.4s both"/>
+              <polygon points="232,119.5 239,123 232,126.5" fill="rgba(220,85,125,0.44)"
+                style="animation:word-appear .3s ease-out 3.7s both"/>
+              <rect x="240" y="109" width="58" height="28" rx="5"
+                fill="rgba(190,55,95,0.14)" stroke="rgba(220,90,132,0.32)" stroke-width=".8"/>
+              <text x="269" y="126" font-family="Inter,sans-serif" font-size="8.5" font-weight="800"
+                fill="rgba(245,185,210,0.88)" text-anchor="middle" letter-spacing=".02em">power·ful</text>
+            </g>
+            <!-- row 4 -->
+            <g style="animation:word-appear 1.0s ease-out 3.4s both">
+              <rect x="172" y="146" width="46" height="18" rx="3.5"
+                fill="rgba(190,55,95,0.08)" stroke="rgba(220,85,125,0.17)" stroke-width=".8"/>
+              <text x="195" y="158" font-family="Inter,sans-serif" font-size="7" font-weight="700"
+                fill="rgba(215,130,162,0.60)" text-anchor="middle" letter-spacing=".03em">joy</text>
+              <line x1="218" y1="155" x2="232" y2="155"
+                stroke="rgba(220,85,125,0.27)" stroke-width=".9"
+                stroke-dasharray="60" stroke-dashoffset="60"
+                style="animation:line-extend .4s ease-out 3.8s both"/>
+              <polygon points="232,151.5 239,155 232,158.5" fill="rgba(220,85,125,0.38)"
+                style="animation:word-appear .3s ease-out 4.1s both"/>
+              <rect x="240" y="141" width="44" height="28" rx="5"
+                fill="rgba(190,55,95,0.12)" stroke="rgba(210,80,122,0.28)" stroke-width=".8"/>
+              <text x="262" y="158" font-family="Inter,sans-serif" font-size="8.5" font-weight="800"
+                fill="rgba(240,178,205,0.84)" text-anchor="middle" letter-spacing=".02em">joy·ful</text>
+            </g>
+
+            <!-- ══ +ful BADGE ══ -->
+            <g style="animation:word-appear 1.0s ease-out 2.4s both">
+              <rect x="172" y="178" width="44" height="20" rx="4"
+                fill="rgba(210,70,110,0.30)" stroke="rgba(250,130,170,0.54)" stroke-width="1.1"/>
+              <text x="194" y="191.5" font-family="Inter,sans-serif" font-size="9.5" font-weight="900"
+                fill="rgba(255,210,228,0.97)" text-anchor="middle" letter-spacing=".02em">+ful</text>
+            </g>
+
+            <!-- ══ BLOOM FLOWERS (decorative) ══ -->
+            <!-- large bloom upper-right -->
+            <g transform="translate(322,58)" style="animation:petal-bloom .9s ease-out 2.4s both;transform-origin:0px 0px">
+              <g style="animation:spin-cw 28s linear infinite;transform-origin:0px 0px">
+                <ellipse cx="0" cy="-13" rx="4"  ry="7.5" fill="rgba(230,90,135,0.42)" transform="rotate(0)"/>
+                <ellipse cx="0" cy="-13" rx="4"  ry="7.5" fill="rgba(245,115,158,0.38)" transform="rotate(45)"/>
+                <ellipse cx="0" cy="-13" rx="4"  ry="7.5" fill="rgba(220,80,122,0.44)" transform="rotate(90)"/>
+                <ellipse cx="0" cy="-13" rx="4"  ry="7.5" fill="rgba(245,115,158,0.38)" transform="rotate(135)"/>
+                <ellipse cx="0" cy="-13" rx="4"  ry="7.5" fill="rgba(230,90,135,0.42)" transform="rotate(180)"/>
+                <ellipse cx="0" cy="-13" rx="4"  ry="7.5" fill="rgba(245,115,158,0.38)" transform="rotate(225)"/>
+                <ellipse cx="0" cy="-13" rx="4"  ry="7.5" fill="rgba(220,80,122,0.44)" transform="rotate(270)"/>
+                <ellipse cx="0" cy="-13" rx="4"  ry="7.5" fill="rgba(245,115,158,0.38)" transform="rotate(315)"/>
+              </g>
+              <circle cx="0" cy="0" r="4.5" fill="rgba(255,210,228,0.88)"/>
+            </g>
+            <!-- small bloom lower-right -->
+            <g transform="translate(350,165)" style="animation:petal-bloom .9s ease-out 3.0s both;transform-origin:0px 0px">
+              <ellipse cx="0" cy="-8"  rx="2.8" ry="5" fill="rgba(240,100,148,0.45)" transform="rotate(0)"/>
+              <ellipse cx="0" cy="-8"  rx="2.8" ry="5" fill="rgba(255,140,178,0.40)" transform="rotate(60)"/>
+              <ellipse cx="0" cy="-8"  rx="2.8" ry="5" fill="rgba(240,100,148,0.45)" transform="rotate(120)"/>
+              <ellipse cx="0" cy="-8"  rx="2.8" ry="5" fill="rgba(255,140,178,0.40)" transform="rotate(180)"/>
+              <ellipse cx="0" cy="-8"  rx="2.8" ry="5" fill="rgba(240,100,148,0.45)" transform="rotate(240)"/>
+              <ellipse cx="0" cy="-8"  rx="2.8" ry="5" fill="rgba(255,140,178,0.40)" transform="rotate(300)"/>
+              <circle cx="0" cy="0" r="3.2" fill="rgba(255,205,225,0.82)"/>
+            </g>
+            <!-- tiny accent bloom left -->
+            <g transform="translate(56,170)" style="animation:petal-bloom .9s ease-out 3.4s both;transform-origin:0px 0px">
+              <ellipse cx="0" cy="-6"  rx="2.2" ry="4" fill="rgba(230,85,128,0.40)" transform="rotate(0)"/>
+              <ellipse cx="0" cy="-6"  rx="2.2" ry="4" fill="rgba(245,120,162,0.35)" transform="rotate(72)"/>
+              <ellipse cx="0" cy="-6"  rx="2.2" ry="4" fill="rgba(230,85,128,0.40)" transform="rotate(144)"/>
+              <ellipse cx="0" cy="-6"  rx="2.2" ry="4" fill="rgba(245,120,162,0.35)" transform="rotate(216)"/>
+              <ellipse cx="0" cy="-6"  rx="2.2" ry="4" fill="rgba(230,85,128,0.40)" transform="rotate(288)"/>
+              <circle cx="0" cy="0" r="2.5" fill="rgba(255,198,220,0.78)"/>
+            </g>
+
+            <!-- ══ FULLNESS BARS (lower right) ══ -->
+            <g style="animation:word-appear 1.0s ease-out 3.6s both">
+              <text x="226" y="178" font-family="Inter,sans-serif" font-size="5.5" font-weight="700"
+                fill="rgba(245,145,185,0.55)" letter-spacing=".06em">FULLNESS</text>
+              <rect x="226" y="181" width="70" height="3.5" rx="1.5" fill="rgba(220,80,120,0.12)"/>
+              <rect x="226" y="181" width="68" height="3.5" rx="1.5"
+                fill="rgba(220,80,120,0.58)" style="animation:word-appear 1.2s ease-out 3.8s both"/>
+
+              <text x="226" y="192" font-family="Inter,sans-serif" font-size="5.5" font-weight="700"
+                fill="rgba(245,145,185,0.55)" letter-spacing=".06em">ABUNDANCE</text>
+              <rect x="226" y="195" width="70" height="3.5" rx="1.5" fill="rgba(220,80,120,0.12)"/>
+              <rect x="226" y="195" width="63" height="3.5" rx="1.5"
+                fill="rgba(220,80,120,0.50)" style="animation:word-appear 1.2s ease-out 4.0s both"/>
+
+              <text x="226" y="206" font-family="Inter,sans-serif" font-size="5.5" font-weight="700"
+                fill="rgba(245,145,185,0.55)" letter-spacing=".06em">OVERFLOW</text>
+              <rect x="226" y="209" width="70" height="3.5" rx="1.5" fill="rgba(220,80,120,0.12)"/>
+              <rect x="226" y="209" width="70" height="3.5" rx="1.5"
+                fill="rgba(220,80,120,0.44)" style="animation:word-appear 1.2s ease-out 4.2s both"/>
+            </g>
+
+            <!-- ══ FORMULA TOP ══ -->
+            <g style="animation:word-appear 1.0s ease-out 2.4s both">
+              <text x="190" y="33" font-family="Inter,sans-serif" font-size="7" font-weight="700"
+                fill="rgba(220,85,125,0.42)" letter-spacing=".06em" text-anchor="middle">
+                [noun] + ‑ful  →  [full of / having]
+              </text>
+              <line x1="78" y1="38" x2="302" y2="38"
+                stroke="rgba(220,85,125,0.16)" stroke-width=".8"/>
+            </g>
+
+            <!-- ══ LEFT BRACKET ══ -->
+            <g style="animation:word-appear 1.0s ease-out 3.6s both">
+              <path d="M 22,44 Q 16,44 16,50 L 16,195 Q 16,201 22,201"
+                stroke="rgba(220,85,125,0.28)" stroke-width="1" fill="none"
+                stroke-dasharray="400" stroke-dashoffset="400"
+                style="animation:line-extend 1.2s ease-out 3.6s both"/>
+              <text x="12" y="122" font-family="Inter,sans-serif" font-size="5.5" font-weight="700"
+                fill="rgba(220,85,125,0.38)" text-anchor="middle" letter-spacing=".08em"
+                transform="rotate(-90,12,122)">FULL OF · HAVING · TENDING</text>
+            </g>
+
+            <!-- registration corners -->
+            <g stroke="rgba(220,85,125,0.28)" stroke-width=".8" fill="none">
+              <path d="M 14,14 L 14,22 M 14,14 L 22,14"/>
+              <path d="M 366,14 L 366,22 M 366,14 L 358,14"/>
+              <path d="M 14,226 L 14,218 M 14,226 L 22,226"/>
+              <path d="M 366,226 L 366,218 M 366,226 L 358,226"/>
+            </g>
+
+            <!-- bottom dimension line -->
+            <g style="animation:word-appear 1.0s ease-out 4.0s both">
+              <line x1="60" y1="228" x2="320" y2="228" stroke="rgba(220,85,125,0.20)" stroke-width=".8"/>
+              <line x1="60"  y1="225" x2="60"  y2="231" stroke="rgba(220,85,125,0.20)" stroke-width=".8"/>
+              <line x1="320" y1="225" x2="320" y2="231" stroke="rgba(220,85,125,0.20)" stroke-width=".8"/>
+              <text x="190" y="236.5" font-family="Inter,sans-serif" font-size="5.5" font-weight="700"
+                fill="rgba(220,85,125,0.38)" letter-spacing=".12em" text-anchor="middle">THE FULLNESS SUFFIX</text>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <!-- bloom particle container -->
+      <div id="bloomContainer"></div>
+
+      <!-- letter tag -->
+      <div class="letter-tag">
+        <span class="ful-main">‑ful<span class="ful-dot"></span></span>
+        <div class="suffix-stack">
+          <span class="suffix-tag">full of</span>
+          <span class="suffix-tag">having · tending</span>
+        </div>
+      </div>
+
+      <!-- hover meaning overlay -->
+      <div class="card-meanings">
+        <div class="meaning-item">
+          <div class="meaning-icon">🌸</div>
+          <div class="meaning-label">Full of</div>
+        </div>
+        <div class="meaning-item">
+          <div class="meaning-icon">💫</div>
+          <div class="meaning-label">Having quality</div>
+        </div>
+        <div class="meaning-item">
+          <div class="meaning-icon">🫙</div>
+          <div class="meaning-label">Amount of</div>
+        </div>
+        <div class="meaning-item">
+          <div class="meaning-icon">✨</div>
+          <div class="meaning-label">Tending to</div>
+        </div>
+      </div>
+
+      <div class="card-vline"></div>
+      <div class="card-hline"></div>
+
+      <!-- card content -->
+      <div class="card-content">
+        <div class="card-name">
+          <div class="name-main">ful<span class="name-dot">.</span>kr</div>
+          <div class="name-sub">the fullness suffix · full of &amp; having</div>
+        </div>
+        <div class="card-meta">
+          <div class="meta-row">suffix — abundative</div>
+          <div class="meta-row">‑ful · full of · having</div>
+          <div class="meta-row">wonderful · graceful</div>
+        </div>
+        <div class="card-right">
+          <div class="badge">
+            <span class="badge-glyph">🌸</span>
+            <span class="badge-label">‑FUL</span>
+          </div>
+          <div class="domain-url">ful<span class="domain-tld">.kr</span></div>
+        </div>
+      </div>
+    </div><!-- /.card -->
+  </div><!-- /.card-wrap -->
+</div><!-- /.scene -->
+
+<script>
+// === tilt interaction ===
+const wrap = document.getElementById('cardWrap');
+const holo = document.getElementById('cardHolo');
+const spot = document.getElementById('cardSpot');
+let tX = 0, tY = 0, cX = 0, cY = 0, hovering = false;
+const lerp = (a, b, t) => a + (b - a) * t;
+
+(function loop() {
+  cX = lerp(cX, tX, 0.09);
+  cY = lerp(cY, tY, 0.09);
+  wrap.style.transform = hovering
+    ? `rotateX(${cX}deg) rotateY(${cY}deg) scale(1.04)`
+    : `rotateX(${cX}deg) rotateY(${cY}deg)`;
+  requestAnimationFrame(loop);
+})();
+
+wrap.addEventListener('mouseenter', () => {
+  hovering = true;
+  wrap.classList.remove('is-idle');
+  wrap.style.animation = 'none';
+});
+wrap.addEventListener('mouseleave', () => {
+  hovering = false;
+  tX = 0; tY = 0;
+  wrap.style.boxShadow = '';
+});
+wrap.addEventListener('mousemove', e => {
+  const r = wrap.getBoundingClientRect();
+  const nx = (e.clientX - r.left - r.width / 2) / (r.width / 2);
+  const ny = (e.clientY - r.top - r.height / 2) / (r.height / 2);
+  tY = nx * 14;
+  tX = -ny * 11;
+  const px = ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%';
+  const py = ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%';
+  const angle = (Math.atan2(ny, nx) * 180 / Math.PI + 90).toFixed(1) + 'deg';
+  holo.style.setProperty('--mx', px);
+  holo.style.setProperty('--my', py);
+  holo.style.setProperty('--r', angle);
+  spot.style.setProperty('--mx', px);
+  spot.style.setProperty('--my', py);
+  wrap.style.boxShadow = `0 45px 90px rgba(8,2,4,.82), 0 12px 28px rgba(8,2,4,.58), 0 0 42px rgba(210,70,110,.18)`;
+});
+
+// === bloom particles ===
+const BLOOMS = [
+  {x:'5%',  s:2.0, color:'rgba(240,110,155,0.80)', dur:7.8, delay:0,   bx:'7px',  by:'-62px', br:'150deg'},
+  {x:'14%', s:1.5, color:'rgba(215,80,120,0.70)',  dur:9.0, delay:.7,  bx:'-5px', by:'-70px', br:'200deg'},
+  {x:'26%', s:1.8, color:'rgba(255,155,192,0.75)', dur:7.4, delay:1.4, bx:'11px', by:'-57px', br:'130deg'},
+  {x:'38%', s:1.3, color:'rgba(230,95,138,0.65)',  dur:9.5, delay:2.1, bx:'-9px', by:'-74px', br:'220deg'},
+  {x:'50%', s:1.9, color:'rgba(245,120,162,0.72)', dur:8.6, delay:.4,  bx:'6px',  by:'-64px', br:'165deg'},
+  {x:'61%', s:1.4, color:'rgba(205,65,102,0.66)',  dur:10.0,delay:1.8, bx:'-7px', by:'-72px', br:'195deg'},
+  {x:'72%', s:2.1, color:'rgba(252,140,180,0.76)', dur:7.9, delay:2.9, bx:'10px', by:'-58px', br:'145deg'},
+  {x:'82%', s:1.6, color:'rgba(222,88,130,0.68)',  dur:9.4, delay:1.1, bx:'-11px',by:'-66px', br:'210deg'},
+  {x:'19%', s:1.2, color:'rgba(255,175,208,0.60)', dur:10.8,delay:3.6, bx:'5px',  by:'-79px', br:'175deg'},
+  {x:'56%', s:1.7, color:'rgba(235,102,148,0.70)', dur:10.2,delay:2.5, bx:'-6px', by:'-63px', br:'158deg'},
+  {x:'44%', s:1.2, color:'rgba(218,82,122,0.58)',  dur:11.2,delay:4.6, bx:'8px',  by:'-84px', br:'235deg'},
+  {x:'88%', s:1.5, color:'rgba(248,128,170,0.68)', dur:7.7, delay:.2,  bx:'-13px',by:'-55px', br:'140deg'},
+];
+
+const bloomContainer = document.getElementById('bloomContainer');
+BLOOMS.forEach(p => {
+  const el = document.createElement('div');
+  el.className = 'bloom';
+  el.style.cssText = `
+    left:${p.x};
+    bottom:${Math.floor(Math.random() * 40 + 8)}px;
+    width:${p.s}px;
+    height:${p.s}px;
+    background:${p.color};
+    --bx:${p.bx};
+    --by:${p.by};
+    --br:${p.br};
+    animation-duration:${p.dur}s;
+    animation-delay:${p.delay}s;
+    box-shadow:0 0 ${Math.ceil(p.s * 2.2)}px ${p.color};
+  `;
+  bloomContainer.appendChild(el);
+});
+</script>
+</body>
+</html>
